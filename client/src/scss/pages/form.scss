@@ -1,0 +1,17 @@
+// Base
+@use '../base/index.scss' as *;
+@use "sass:map";
+
+.form{
+    & form{
+        & header{
+            background: #0D2C45;
+            & img{
+                filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+            }
+            & h1{
+                font-size: clamp-value(1rem, 2vw, 2.5rem);
+            }
+        }
+    }
+}
