@@ -4,6 +4,7 @@ import {RouterProvider, Routes, Route, createHashRouter} from 'react-router-dom'
 // Form
 import Form from './pages/form'
 import List from './pages/list'
+import View from './pages/view'
 
 const App = () => {
 
@@ -15,6 +16,10 @@ const App = () => {
     {
       path: '/list',
       element: <List />
+    },
+    {
+      path: '/view',
+      element: <View />
     }
   ])
 

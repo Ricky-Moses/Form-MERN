@@ -36,4 +36,32 @@ router.get('/', async (req, res) =>{
     }
 })
 
+router.put('/:id', async (req, res) => {
+    try{
+        const updateData = await User.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            {new: true}
+        )
+
+        res.status(200).json(updateData)
+    }
+    catch(err){
+        console.log('Error Updating data', err);
+        res.status(500).json({message: 'Server Error'})
+    }
+})
+
+router.delete('/list/:_id', async (req, res)=>{
+    try{
+        const remainingData = await User.findByIdAndDelete(req.params._id)
+
+        res.status(200).json({ message: 'User deleted successfully' });
+    }
+    catch(err){
+        console.log('Error Updating data', err);
+        res.status(500).json({message: 'Server Error'})
+    }
+})
+
 module.exports = router

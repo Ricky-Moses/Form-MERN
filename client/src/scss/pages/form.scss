@@ -15,3 +15,13 @@
         }
     }
 }
+
+.view{
+    & main{
+        & header{
+            & h1{
+                font-size: clamp-value(1rem, 2vw, 2.5rem);
+            }
+        }
+    }
+}

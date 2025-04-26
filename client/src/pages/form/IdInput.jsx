@@ -73,9 +73,6 @@ const IdInput = ({data, onChange}) => {
                     </tbody>
                 </table>
             </div>
-            <div className=" !p-1 h-42 flex items-center justify-center">
-                <input type='file' className="border w-full h-full"/>
-            </div>
         </div>
     )
 }

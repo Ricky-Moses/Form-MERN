@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 // Axios
 import axios from 'axios'
 // Router DOM
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 // Components
 import Header from './form/Header'
@@ -27,6 +27,7 @@ const Form = () => {
     const [formData, setFormData] = useState({
         id: Array(8).fill(''),
         date: Array(8).fill(''),
+        img: null,
         name: '',
         dob: Array(8).fill(''),
         place: '',
@@ -41,6 +42,30 @@ const Form = () => {
     });
 
     const navigate = useNavigate()
+    const location = useLocation()
+
+    useEffect(() => {
+        if (location.state) {
+            const receivedData = location.state
+
+            setFormData(prev => ({
+                ...prev,
+                id: Array(8).fill('') || '',
+                date: Array(8).fill('') || '',
+                dob: Array(8).fill('') || '',
+                name: receivedData.name || '',
+                place: receivedData.place || '',
+                gender: receivedData.gender || '',
+                martial: receivedData.martial || '',
+                address: receivedData.address || '',
+                state: receivedData.state || 'Tamil Nadu',
+                district: receivedData.district || '',
+                zip: Array(6).fill('') || '',
+                email: receivedData.email || '',
+                phone: Array(10).fill('') || ''
+            }));
+        }
+    }, [location.state])
 
     const handleChanges = (field, value) => {
         setFormData(prev => ({ ...prev, [field]: value }))
@@ -62,9 +87,17 @@ const Form = () => {
             phone: formatPhone,
         }
 
-        try{
-            const response = await axios.post(API, processData)
-            console.log('Submitted', response.user);
+        try {
+
+            if (location.state && location.state.id) {
+                const response = await axios.put(`${API}/${location.state._id}`, processData)
+                console.log('Submitted', response.data)
+            }
+            else {
+                const response = await axios.post(API, processData)
+                console.log('Submitted', response.data)
+            }
+
 
             setFormData({
                 id: Array(8).fill(''),
@@ -82,73 +115,110 @@ const Form = () => {
                 phone: Array(10).fill('')
             })
         }
-        catch(err){
+        catch (err) {
             console.log('Error occur', err);
         }
+    }
+
+    const handleRest = () => {
+        setFormData({
+            id: Array(8).fill(''),
+            date: Array(8).fill(''),
+            name: '',
+            dob: Array(8).fill(''),
+            place: '',
+            gender: '',
+            martial: '',
+            address: '',
+            state: 'Tamil Nadu',
+            district: '',
+            zip: Array(6).fill(''),
+            email: '',
+            phone: Array(10).fill('')
+        })
     }
 
     return (
         <>
             <section className="form flex items-center justify-center text-black !py-2">
                 <form onSubmit={handleSubmit} className="w-dvh h-fit shadow-2xl overflow-hidden">
+
                     {/* Header */}
                     <Header />
                     {/* Header */}
+
                     {/* Form */}
                     <main className="">
+
                         {/* Id, Date & Img */}
                         <IdInput data={formData} onChange={handleChanges} />
                         {/* Id, Date & Img */}
+
                         <hr />
                         <table className='table border-separate border-spacing-2 w-full !mt-2'>
                             <tbody className="">
+
                                 {/* Name */}
                                 <Name data={formData} setData={setFormData} />
                                 {/* Name */}
+
                                 {/* DOB */}
                                 <Dob data={formData} onChange={handleChanges} />
                                 {/* DOB */}
                                 {/* Place of birth */}
                                 <Place data={formData} setData={setFormData} />
                                 {/* Place of birth */}
+
                                 {/* Gender */}
                                 <Gender data={formData} setData={setFormData} />
                                 {/* Gender */}
+
                                 {/* Martial Status */}
                                 <Martial data={formData} setData={setFormData} />
                                 {/* Martial Status */}
+
                                 {/* Address */}
                                 <Address data={formData} setData={setFormData} />
                                 {/* Address */}
+
                                 {/* State */}
                                 <State data={formData} setData={setFormData} />
                                 {/* State */}
+
                                 {/* City */}
                                 <City data={formData} setData={setFormData} />
                                 {/* City */}
+
                                 {/* Zip-Code */}
                                 <Zip data={formData} onChange={handleChanges} />
                                 {/* Zip-Code */}
+
                                 {/* Email */}
                                 <Email data={formData} setData={setFormData} />
                                 {/* Email */}
+
                                 {/* Phone */}
                                 <Phone data={formData} onChange={handleChanges} />
                                 {/* Phone */}
+
                                 {/* Submit */}
                                 <tr className=''>
                                     <td className="flex items-center gap-3">
                                         <input type='submit' className="btn btn-soft btn-primary !px-3" />
                                         <button
                                             onClick={() => navigate('/list')}
-                                            className='btn btn-soft btn-primary !px-3'>List</button>
+                                            className='btn btn-soft btn-warning !px-3'>List
+                                        </button>
+                                        <input type='reset' className="btn btn-soft btn-error !px-3" onClick={handleRest} />
                                     </td>
                                 </tr>
                                 {/* Submit */}
+
                             </tbody>
                         </table>
                     </main>
                     {/* Form */}
+
                 </form>
             </section>
         </>
