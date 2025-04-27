@@ -90,14 +90,14 @@ const Form = () => {
         try {
 
             if (location.state && location.state.id) {
-                const response = await axios.put(`${API}/${location.state._id}`, processData)
-                console.log('Submitted', response.data)
+                const response = await axios.put(`${API}/${location?.state?._id}`, processData)
+                console.log('Submitted', response?.data)
             }
             else {
                 const response = await axios.post(API, processData)
-                console.log('Submitted', response.data)
+                console.log('Submitted', response?.data)
+                alert(`Data completed successfully ${response?.data?.user?.name}`)
             }
-
 
             setFormData({
                 id: Array(8).fill(''),

@@ -11,8 +11,8 @@ const app = express();
 connectDB()
 
 // Middleware
-app.use(cors()) // Enable the cross-origin platform
-app.use(express.json()) // Enable JSON Parse bodies
+app.use(cors())
+app.use(express.json())
 
 // Routes
 app.use('/api/user', formRouter)
