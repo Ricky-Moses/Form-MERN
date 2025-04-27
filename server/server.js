@@ -17,11 +17,6 @@ app.use(express.json())
 // Routes
 app.use('/api/user', formRouter)
 
-app.get('/', (req, res) => {
-  res.send('Server Running')
-})
-
-
 // Server listen
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {

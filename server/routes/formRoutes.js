@@ -26,7 +26,7 @@ router.post('/', async (req, res) => {
 })
 
 // GET
-router.get('/', async (req, res) =>{
+router.get('/api/user', async (req, res) =>{
     try{
         const user = await User.find();
         res.status(200).json(user)
