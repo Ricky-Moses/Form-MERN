@@ -15,10 +15,12 @@ app.use(cors())
 app.use(express.json())
 
 // Routes
+app.use('/api/user', formRouter)
+
 app.get('/', (req, res) => {
   res.send('Server Running')
 })
-app.use('/api/user', formRouter)
+
 
 // Server listen
 const PORT = process.env.PORT || 3000
