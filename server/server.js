@@ -16,7 +16,7 @@ app.use(express.json())
 
 // Routes
 app.get('/', (req, res) => {
-  res.redirect('/api/user', formRouter)
+  res.send('/api/user', formRouter)
 })
 
 // Server listen
