@@ -14,6 +14,7 @@ const List = () => {
       try {
         const response = await axios.get(API)
         setData(response.data)
+        console.log(response.data);
       }
       catch (err) {
         console.log('Error receiving', err.message);
