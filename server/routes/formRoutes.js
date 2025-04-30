@@ -3,8 +3,19 @@ const User = require('../models/user')
 
 const router = express.Router()
 
+// GET
+router.get('/', async (req, res) =>{
+    try{
+        const user = await User.find();
+        res.status(200).json(user)
+    }
+    catch(err){
+        res.status(500).json({message: 'Error Fetching data'})
+    }
+})
+
 // POST
-router.post('/', async (req, res) => {
+router.post('/add_task', async (req, res) => {
     const { id, date, name, dob, place, gender, martial, address, state, district, zip, email, phone } = req.body
 
     try{
@@ -25,18 +36,8 @@ router.post('/', async (req, res) => {
     }
 })
 
-// GET
-router.get('/api/user', async (req, res) =>{
-    try{
-        const user = await User.find();
-        res.status(200).json(user)
-    }
-    catch(err){
-        res.status(500).json({message: 'Error Fetching data'})
-    }
-})
 
-router.put('/:id', async (req, res) => {
+router.put('/update_task/:id', async (req, res) => {
     try{
         const updateData = await User.findByIdAndUpdate(
             req.params.id,
@@ -52,9 +53,9 @@ router.put('/:id', async (req, res) => {
     }
 })
 
-router.delete('/list/:_id', async (req, res)=>{
+router.delete('/delete_task/:id', async (req, res)=>{
     try{
-        const remainingData = await User.findByIdAndDelete(req.params._id)
+        const remainingData = await User.findByIdAndDelete(req.params.id)
 
         res.status(200).json({ message: 'User deleted successfully' });
     }

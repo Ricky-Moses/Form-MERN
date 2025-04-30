@@ -15,7 +15,7 @@ app.use(cors())
 app.use(express.json())
 
 // Routes
-app.use('/api/user', formRouter)
+app.use('/api/form', formRouter)
 
 // Server listen
 const PORT = process.env.PORT || 3000
