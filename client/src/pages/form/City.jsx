@@ -1,5 +1,45 @@
 import React from 'react'
 
+const district = [
+    'Ariyalur',
+    'Chengalpattu',
+    'Chennai',
+    'Coimbatore',
+    'Cuddalore',
+    'Dharmapuri',
+    'Dindigul',
+    'Erode',
+    'Kallakurichi',
+    'Kanchipuram',
+    'Kanyakumari',
+    'Karur',
+    'Krishnagiri',
+    'Madurai',
+    'Mayiladuthurai',
+    'Nagapattinam',
+    'Namakkal',
+    'Nilgiris',
+    'Perambalur',
+    'Pudukkottai',
+    'Ramanathapuram',
+    'Ranipet',
+    'Salem',
+    'Sivaganga',
+    'Tenkasi',
+    'Thanjavur',
+    'Theni',
+    'Thoothukudi',
+    'Tiruchirappalli',
+    'Tirunelveli',
+    'Tirupathur',
+    'Tiruppur',
+    'Tiruvallur',
+    'Tiruvannamalai',
+    'Tiruvarur',
+    'Vellore',
+    'Viluppuram',
+    'Virudhunagar'
+];
 const City = ({ data, setData }) => {
 
     const handleChange = (e) => {
@@ -17,9 +57,9 @@ const City = ({ data, setData }) => {
                     onChange={handleChange}
                     className="select bg-transparent !ps-2" required>
                     <option>--Select--</option>
-                    <option value="Dindigul">Dindigul</option>
-                    <option value="Madurai">Madurai</option>
-                    <option value="Chennai">Chennai</option>
+                    {district.map(dist => (
+                        <option key={dist} value={dist}>{dist}</option>
+                    ))}
                 </select>
             </td>
         </tr>
