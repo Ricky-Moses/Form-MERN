@@ -1,44 +1,62 @@
 // Base
-@use '../base/index.scss' as *;
+@use "../base/index.scss" as *;
 @use "sass:map";
 
-.form{
-    & form{
-        & header{
-            background: #0D2C45;
-            & img{
-                filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
-            }
-            & h1{
-                font-size: clamp-value(1rem, 2vw, 2.5rem);
-            }
-        }
-        & main{
-            & .second-table{
-                & tr{
-                    & th{
-                        word-break: break-all;
-                        font-size: .8em;
-                        width: 45% !important;
-                    }
-                    & td:nth-of-type(1){
-                        width: 5% !important;
-                    }
-                    & td:nth-of-type(2){
-                        width: 100% !important;
-                    }
-                }
-            }
-        }
+.form {
+  & form {
+    & header {
+      background: #0d2c45;
+      & img {
+        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
+      }
+      & h1 {
+        font-size: clamp-value(1rem, 2vw, 2.5rem);
+      }
     }
+    & main {
+      & .second-table {
+        & tr {
+          & th {
+            word-break: break-all;
+            width: 45% !important;
+          }
+          & td:nth-of-type(1) {
+            width: 5% !important;
+          }
+          & td:nth-of-type(2) {
+            width: 100% !important;
+          }
+        }
+      }
+    }
+  }
 }
 
-.view{
-    & main{
-        & header{
-            & h1{
-                font-size: clamp-value(1rem, 2vw, 2.5rem);
-            }
-        }
+.view {
+  & main {
+    & header {
+      & h1 {
+        font-size: clamp-value(1rem, 2vw, 2.5rem);
+      }
     }
+  }
+}
+
+// Media query
+@media (max-width: 450px) {
+  .form {
+    & form {
+      & main {
+        & .second-table {
+          & tr {
+            & th {
+              word-break: break-all;
+              font-size: 0.8em;
+              width: 45% !important;
+            }
+          }
+        }
+      }
+    }
+  }
 }
