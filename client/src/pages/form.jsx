@@ -27,7 +27,6 @@ const Form = () => {
     const [formData, setFormData] = useState({
         id: Array(8).fill(''),
         date: Array(8).fill(''),
-        img: null,
         name: '',
         dob: Array(8).fill(''),
         place: '',
@@ -45,25 +44,24 @@ const Form = () => {
     const location = useLocation()
 
     useEffect(() => {
-        if (location.state) {
+        if (location.state?._id) {
             const receivedData = location.state
 
-            setFormData(prev => ({
-                ...prev,
-                id: Array(8).fill('') || '',
-                date: Array(8).fill('') || '',
-                dob: Array(8).fill('') || '',
+            setFormData({
+                id: Array(8).fill(''),
+                date: Array(8).fill(''),
                 name: receivedData.name || '',
+                dob: Array(8).fill(''),
                 place: receivedData.place || '',
                 gender: receivedData.gender || '',
                 martial: receivedData.martial || '',
                 address: receivedData.address || '',
                 state: receivedData.state || 'Tamil Nadu',
                 district: receivedData.district || '',
-                zip: Array(6).fill('') || '',
+                zip: Array(6).fill(''),
                 email: receivedData.email || '',
-                phone: Array(10).fill('') || ''
-            }));
+                phone: Array(10).fill('')
+            });
         }
     }, [location.state])
 
@@ -78,6 +76,23 @@ const Form = () => {
         const formatDob = `${formData.dob.slice(0, 2).join('').padStart(2, '0')}-${formData.dob.slice(2, 4).join('').padStart(2, '0')}-${formData.dob.slice(4).join('').padStart(4, '0')}`
         const formatPhone = `${formData.phone.slice(0, 3).join('').padStart(3, '0')}-${formData.phone.slice(3, 6).join('').padStart(3, '0')}-${formData.phone.slice(6).join('').padStart(4, '0')}`
 
+        const addData = {
+            ...formData,
+            id: formData.id.join(''),
+            date: formatDate,
+            name: formData.name,
+            dob: formatDob,
+            place: formData.place,
+            gender: formData.gender,
+            martial: formData.martial,
+            address: formData.address,
+            state: formData.state,
+            district: formData.district,
+            zip: formData.zip.join(''),
+            email: formData.email,
+            phone: formatPhone,
+        }
+
         const processData = {
             ...formData,
             id: formData.id.join(''),
@@ -89,12 +104,12 @@ const Form = () => {
 
         try {
 
-            if (location.state && location.state.id) {
-                const response = await axios.put(`${API}/${location?.state?._id}`, processData)
+            if (location.state && location.state?._id) {
+                const response = await axios.put(`${API}/update_task/${location?.state?._id}`, processData)
                 console.log('Submitted', response?.data)
             }
             else {
-                const response = await axios.post(API, processData)
+                const response = await axios.post(`${API}/add_task`, addData)
                 console.log('Submitted', response?.data)
                 alert(`Data completed successfully ${response?.data?.user?.name}`)
             }
@@ -148,15 +163,15 @@ const Form = () => {
                     {/* Header */}
 
                     {/* Form */}
-                    <main className="">
+                    <main className="!p-1 xs:!p-0">
 
                         {/* Id, Date & Img */}
                         <IdInput data={formData} onChange={handleChanges} />
                         {/* Id, Date & Img */}
 
                         <hr />
-                        <table className='table border-separate border-spacing-2 w-full !mt-2'>
-                            <tbody className="">
+                        <table className='second-table table-fixed xs:table border-separate border-spacing-1 xs:border-spacing-2 w-full !mt-2 '>
+                            <tbody className="w-full">
 
                                 {/* Name */}
                                 <Name data={formData} setData={setFormData} />

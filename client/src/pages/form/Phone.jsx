@@ -39,7 +39,7 @@ const Phone = ({ data, onChange }) => {
                             }
                         }}
                         onKeyDown={(e) => handleKeyDown(e, i, phoneRef)}
-                        className="input input-neutral w-4 xs:w-7 sm:w-2/3 bg-transparent text-center border-black" required/>
+                        className="input input-neutral w-5 xs:w-6 sm:w-2/3 bg-transparent text-center border-black" required/>
                 ))}
             </td>
         </tr>
